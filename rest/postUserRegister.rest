@@ -1,0 +1,6 @@
+POST http://localhost:8000/api/user/register
+Content-Type: application/json
+
+{
+  "channelId": "rvikwd3"
+}
