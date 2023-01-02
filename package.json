@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
-    "prod": "node dist/index.js",
+    "prod": "tsc -p .",
     "compileBrowserTs": "tsc views/queueVoiceline.ts"
   },
   "author": "Ravikiran Kawade",
