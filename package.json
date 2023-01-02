@@ -4,11 +4,9 @@
   "description": "Server to provide Dota Voiceline OBS Browser Sources and queue voicelines to a specific twitch channel",
   "main": "src/index.ts",
   "scripts": {
-    "tsc": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
-    "prod": "tsc -p .",
-    "compileBrowserTs": "tsc views/queueVoiceline.ts"
+    "prod": "tsc -p ."
   },
   "author": "Ravikiran Kawade",
   "license": "MIT",
