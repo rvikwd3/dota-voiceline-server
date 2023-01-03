@@ -37,11 +37,11 @@ app.use(cookieSession({
 // Socket.io io config
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.SOCKETIO_CORS_ORIGIN_LIST?.split(',')
+    origin: process.env.SOCKETIO_CORS_ORIGIN_LIST?.split(','),
+    methods: ["GET", "POST"]
   }
 });
 
-console.log('CORS Origin List: ', process.env.SOCKETIO_CORS_ORIGIN_LIST?.split(','));
 
 io.on("connection", async (socket) => {
   console.log(`Token payload: ${socket.handshake.auth.token}`);
