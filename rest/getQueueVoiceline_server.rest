@@ -1,0 +1,4 @@
+GET https://dotavoicelineapi.live/voicelines/queueVoiceline
+?username=ravolol
+&voiceline=skywrath+mage+master
+&API_KEY=ajtymsFciFZFr32HGRTsnCGOTcA

@@ -62,4 +62,34 @@ router.post("/queueVoiceline", (req: QueueVoicelineRequest, res: VoicelineRouter
   return res.json({ queuedVoicelines: queueVoicelineMessage });
 });
 
+router.get("/queueVoiceline", (req: QueueVoicelineRequest, res: VoicelineRouterResponse) => {
+  // Retrieve user from API_KEY check middleware
+  const user = res.locals.user;
+
+  // Retrieve '!chatwheel' callee twitch username
+  const { username, voiceline } = req.query;
+
+  // Check if user-checking middleware returned 'undefined' for user
+  if (!user) {
+    console.log(`User provided to /queueVoiceline route was undefined. Aborting parsing voiceline.`);
+    return;
+  }
+
+  // Check if query parameters were defined in GET request
+  if (!username || !voiceline) {
+    console.error('Either a username or voiceline was not provided in the GET /queueVoiceline request');
+    return;
+  }
+
+  // Send voicelineAudio url, voiceline text, plusTier, heroName, username to obsBrowserSource
+  const parsedVoicelines = parseVoicelineRequest(voiceline.toString().toLowerCase());
+  if (parsedVoicelines.length === 0) console.log(`No voiceline parsed from given POST body: ${voiceline.toString().toLowerCase()}`);
+  console.log(`API Request twitch_name: ${user.twitchLogin}\n`, "Parsed voiceline: ", parsedVoicelines);
+
+  const queueVoicelineMessage = parsedVoicelines.map(vl => ({ ...vl, username: username }));
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  req.app.get('io').to(user.browserSourceId).emit("queueVoiceline", queueVoicelineMessage); // Emit message to room specified by browserSourceId
+  return res.json({ queuedVoicelines: queueVoicelineMessage });
+});
+
 export default router;

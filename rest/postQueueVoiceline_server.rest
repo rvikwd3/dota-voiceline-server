@@ -4,5 +4,6 @@ POST https://dotavoicelineapi.live/voicelines/queueVoiceline
 Content-Type: application/json
 
 {
-  "voiceline": "skywrath mage master"
+  # "voiceline": "skywrath mage master"
+  "voiceline": "?"
 }
