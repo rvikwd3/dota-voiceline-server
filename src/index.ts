@@ -41,7 +41,7 @@ const io = new Server(httpServer, {
   }
 });
 
-
+console.log('CORS Origin List: ', process.env.SOCKETIO_CORS_ORIGIN_LIST?.split(','));
 
 io.on("connection", async (socket) => {
   console.log(`Token payload: ${socket.handshake.auth.token}`);
