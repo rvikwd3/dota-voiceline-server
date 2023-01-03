@@ -19,7 +19,6 @@ const app: Express = express();
 // app.use('/static', express.static(path.join(__dirname, '../public')));
 
 const httpServer = createServer(app);
-const port = process.env.PORT;
 
 // cookie-session config
 app.use(cookieSession({
@@ -78,9 +77,5 @@ app.use('/user', userRouter);
 */
 app.use(errorMiddleware);
 
-app.listen(port, () => {
-  console.log(`Express server is running on PORT: ${port}`);
-});
-
 // Socket.io listening port
-httpServer.listen(process.env.SOCKETIO_SERVER_PORT);
+httpServer.listen(process.env.PORT);
