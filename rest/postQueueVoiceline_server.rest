@@ -1,0 +1,8 @@
+POST https://dotavoicelineapi.live/voicelines/queueVoiceline
+?username=ravolol
+&API_KEY=ajtymsFciFZFr32HGRTsnCGOTcA
+Content-Type: application/json
+
+{
+  "voiceline": "skywrath mage master"
+}
