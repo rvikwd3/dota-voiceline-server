@@ -2,12 +2,16 @@ import { ApplicationError, CasterLookupTableEntry, HeroLookupTableEntry, HttpCod
 import Keygrip from "keygrip";
 import crypto from 'crypto';
 
-export const isUserLastAuthStale = (lastAuth: Date) => {
-  const staleThreshold = 30 * 24 * 60 * 60 * 1000;   // 30 days
-  const timeDiff = new Date().getTime() - lastAuth.getTime();
-  console.log(`Stale time difference: ${timeDiff / (1000 * 60 * 60 * 24)} days`);
-  return timeDiff > staleThreshold;
-};
+/*
+* Removed requirement for checking staleness
+* Unnecessarily annoying to renew APIKeys every period of time
+*/
+// export const isUserLastAuthStale = (lastAuth: Date) => {
+//   const staleThreshold = 30 * 24 * 60 * 60 * 1000;   // 30 days
+//   const timeDiff = new Date().getTime() - lastAuth.getTime();
+//   console.log(`Stale time difference: ${timeDiff / (1000 * 60 * 60 * 24)} days`);
+//   return timeDiff > staleThreshold;
+// };
 
 export const isCasterEntry = (entry: HeroLookupTableEntry | CasterLookupTableEntry): entry is CasterLookupTableEntry => {
   if (!('casterVoicelines' in entry)) {

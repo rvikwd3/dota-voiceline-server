@@ -7,7 +7,6 @@ import {
   getTwitchUsersData,
   upsertUserToDatabase,
 } from "../services/userService";
-import { isUserLastAuthStale } from "../utils";
 
 const router = Router();
 
@@ -67,7 +66,7 @@ router.get( "/auth", async ( req: TwitchAuthRequest, res: Response, next: NextFu
 
           // Check if user exists in the database
           const foundUser = await findUserByTwitchId(twitchUserData.id);
-          if (foundUser && !isUserLastAuthStale(foundUser.lastAuthenticated)) {
+          if (foundUser) {
             // if a user already exists, and the user has been recently authenticated (not stale)
             return res.render("registrationAlreadyExists", {
               id: foundUser.twitchId,
