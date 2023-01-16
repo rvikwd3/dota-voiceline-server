@@ -70,6 +70,7 @@ router.get( "/auth", async ( req: TwitchAuthRequest, res: Response, next: NextFu
             // if a user already exists, and the user has been recently authenticated (not stale)
             return res.render("registrationAlreadyExists", {
               id: foundUser.twitchId,
+              profileImgSrc: twitchUserData.profile_image_url,
               login: foundUser.twitchLogin,
               apiKey: foundUser.apiKey,
               browserSourceUrl: `/user/socketDisplayPage?id=${foundUser.browserSourceId}`,
@@ -83,6 +84,7 @@ router.get( "/auth", async ( req: TwitchAuthRequest, res: Response, next: NextFu
             if (newUser) {
               return res.render("registerSuccess", {
                 id: newUser.twitchId,
+                profileImgSrc: twitchUserData.profile_image_url,
                 login: newUser.twitchLogin,
                 apiKey: newUser.apiKey,
                 browserSourceUrl: `/user/socketDisplayPage?id=${newUser.browserSourceId}`,

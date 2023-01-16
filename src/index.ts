@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Express, Request, Response } from 'express';
+import path from 'path';
 import cookieSession from 'cookie-session';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -16,7 +17,7 @@ import { generateTwitchAuthUrl } from './utils';
 const app: Express = express();
 
 // Static files to be served from 'public' folder
-// app.use('/static', express.static(path.join(__dirname, '../public')));
+app.use('/static', express.static(path.join(__dirname, '../public')));
 
 const httpServer = createServer(app);
 
@@ -76,6 +77,8 @@ app.use('/user', userRouter);
  * Middleware
 */
 app.use(errorMiddleware);
+
+console.log(`Express server and SocketIo server running on port: ${process.env.PORT}`);
 
 // Socket.io listening port
 httpServer.listen(process.env.PORT);

@@ -4,7 +4,7 @@
     "name": ["caster"],
     "icon": "/placeholder.png",
     "selection": "/placeholder.png",
-    "avatar": "/placeholder.png",
+    "avatar": "https://dotavoicelineapi.live/static/caster.png",
     "casterVoicelines": [
       {
         "text": "Это ГГ",
