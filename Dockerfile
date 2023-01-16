@@ -19,6 +19,7 @@ WORKDIR /usr/app
 COPY --from=ts-compiler /usr/app/package*.json ./
 COPY --from=ts-compiler /usr/app/.env ./
 COPY --from=ts-compiler /usr/app/dist ./
+COPY --from=ts-compiler /usr/app/public ./
 COPY --from=ts-compiler /usr/app/data ./data
 COPY --from=ts-compiler /usr/app/views ./views
 # Build express app for production
