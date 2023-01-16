@@ -8,6 +8,16 @@ const findLongestHeroAliasInCommand = (command: string): string => {
       .reduce((a,b) => a.length > b.length ? a : b);  // take the longest hero alias string (if multiple matches)
 };
 
+const getCasterEntry = () => {
+  const casterEntry = heroesLookupTable.find(entry => entry.entryType === 'Caster');
+  if (!casterEntry){
+    console.error("ERROR: EntryType 'Caster' not found in heroesLookupTable");
+    return undefined;
+  }
+
+  return casterEntry;
+};
+
 export const getHeroEntryFromCommand = (command: string): HeroLookupTableEntry | undefined => {
   // Find longest hero alias that exists inside command
   // Then find hero entry that contains that hero alias
@@ -171,10 +181,16 @@ export const parseVoicelineRequest = (command: string): Omit<VoicelineEmitMessag
       voicelineText = castersEntry.casterVoicelines[voicelineIndex].text;
     }
 
+    const casterEntry = getCasterEntry();
+    if (!casterEntry) {
+      console.error("ERROR: EntryType 'Caster' has 'avatar' attribute undefined");
+      return parsedVoicelines;
+    }
+
     parsedVoicelines.push({
       hero: {
         name: 'caster',
-        avatar: 'caster'
+        avatar: casterEntry.avatar,
       },
       plusTier: 'caster',
       voiceline: {

@@ -68,3 +68,13 @@ export const generateNewBrowserSourceId = () => {
   const keys = Keygrip(process.env.KEYLIST_BROWSER_SOURCE_ID.split('\n'));
   return keys.sign(crypto.getRandomValues(Buffer.alloc(16)).toString('base64'));
 };
+
+export const decrementVoiceline = (voiceline: string) => {
+  const indexMatcher = / ([0-9]*[1-9])$/;
+
+  const index = indexMatcher.exec(voiceline)?.[1];
+  if (!index){
+    console.error(`ERROR: Decrementing index of - ${voiceline}`);
+  }
+  return voiceline.replace(indexMatcher, index ? `${" "}${Number(index) - 1}` : '...');
+};

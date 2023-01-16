@@ -3,6 +3,7 @@ import { findUserByApiKey } from "../services/userService";
 import { parseVoicelineRequest } from "../services/voicelineService";
 import { User } from "../types";
 import { ParamsDictionary } from "express-serve-static-core";
+import { decrementVoiceline } from "../utils";
 const router = express.Router();
 
 /* Types */
@@ -51,9 +52,11 @@ router.post("/queueVoiceline", (req: QueueVoicelineRequest, res: VoicelineRouter
     return;
   }
 
+  const decrementedVoiceline = decrementVoiceline(req.body.voiceline.toString().toLowerCase());
+  console.log("DECREMENTED: ",decrementedVoiceline);
   // Send voicelineAudio url, voiceline text, plusTier, heroName, username to obsBrowserSource
-  const parsedVoicelines = parseVoicelineRequest(req.body.voiceline.toLowerCase());
-  if (parsedVoicelines.length === 0) console.log(`No voiceline parsed from given POST body: ${req.body.voiceline.toLowerCase()}`);
+  const parsedVoicelines = parseVoicelineRequest(decrementedVoiceline);
+  if (parsedVoicelines.length === 0) console.log(`No voiceline parsed from given POST body: ${decrementedVoiceline}`);
   console.log(`API Request twitch_name: ${user.twitchLogin}\n`, "Parsed voiceline: ", parsedVoicelines);
 
   const queueVoicelineMessage = parsedVoicelines.map(voiceline => ({ ...voiceline, username: username }));
@@ -81,9 +84,11 @@ router.get("/queueVoiceline", (req: QueueVoicelineRequest, res: VoicelineRouterR
     return;
   }
 
+  const decrementedVoiceline = decrementVoiceline(voiceline.toString().toLowerCase());
+  console.log("DECREMENTED: ",decrementedVoiceline);
   // Send voicelineAudio url, voiceline text, plusTier, heroName, username to obsBrowserSource
-  const parsedVoicelines = parseVoicelineRequest(voiceline.toString().toLowerCase());
-  if (parsedVoicelines.length === 0) console.log(`No voiceline parsed from given POST body: ${voiceline.toString().toLowerCase()}`);
+  const parsedVoicelines = parseVoicelineRequest(decrementedVoiceline);
+  if (parsedVoicelines.length === 0) console.log(`No voiceline parsed from given POST body: ${decrementedVoiceline}`);
   console.log(`API Request twitch_name: ${user.twitchLogin}\n`, "Parsed voiceline: ", parsedVoicelines);
 
   const queueVoicelineMessage = parsedVoicelines.map(vl => ({ ...vl, username: username }));
