@@ -20,7 +20,6 @@ COPY --from=ts-compiler /usr/app/package*.json ./
 COPY --from=ts-compiler /usr/app/.env ./
 COPY --from=ts-compiler /usr/app/dist ./
 COPY --from=ts-compiler /usr/app/public ./public
-COPY --from=ts-compiler /usr/app/data ./data
 COPY --from=ts-compiler /usr/app/views ./views
 # Build express app for production
 RUN npm ci --only=production
