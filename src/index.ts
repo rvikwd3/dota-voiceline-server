@@ -16,9 +16,6 @@ import { generateTwitchAuthUrl } from './utils';
 // express server config
 const app: Express = express();
 
-// Static files to be served from 'public' folder
-app.use('/static', express.static(path.join(__dirname, '../public')));
-
 const httpServer = createServer(app);
 
 // cookie-session config
@@ -66,6 +63,9 @@ app.get('/', (req: Request, res: Response) => {
   req.session.twitchAuthState = twitchAuthState;
   res.render('index', { authUrl: twitchAuthUrl });
 });
+
+/* Static Files (in /public) server */
+app.use('/static', express.static(path.join(__dirname, '../public')));
 
 /*
  * API Routes
