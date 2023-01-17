@@ -1,5 +1,5 @@
 import { HeroLookupTableEntry, VoicelineEmitMessage, PlusTiers, CasterLookupTableEntry } from "../types";
-import heroesLookupTable from "../../data/heroesLookupTable_manuallyHydrated.json";
+import heroesLookupTable from "../../public/data/heroesLookupTable.json";
 
 const findLongestHeroAliasInCommand = (command: string): string => {
   return heroesLookupTable
